@@ -1,7 +1,7 @@
 {
   "name": "pos-backend",
   "module": "index.ts",
-  "type": "module",
+  "type": "commonjs",
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^22.10.2",
@@ -13,10 +13,10 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "postinstall": "prisma generate && tsc",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' api/index.ts",
-    "start": "node dist/index.js"
-  },
+  "postinstall": "prisma generate && tsc",
+  "dev": "nodemon dist/api/index.js",
+  "start": "node dist/api/index.js"
+},
   "dependencies": {
     "@prisma/client": "^6.1.0",
     "@types/bcryptjs": "^2.4.6",
