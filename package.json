@@ -1,0 +1,28 @@
+{
+  "name": "pos-backend",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "postinstall": "prisma generate && tsc",
+    "dev": "bun run --watch api/index.ts",
+    "start": "bun run api/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.1.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@vercel/node": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.1.0"
+  }
+}

@@ -1,0 +1,74 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  password String
+  role     String
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
+  slug  String 
+  products Product[]
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  name        String
+  price       Float
+  categoryId  Int
+  stock       Int
+  description String
+  unitId        Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  unit    Unit  @relation(fields: [unitId], references: [id])
+  saleItems   SaleItem[]
+}
+
+model Unit {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  products Product[]
+}
+
+model Sale {
+  id        Int        @id @default(autoincrement())
+  saleNo String
+  date      String  
+  subtotal  Float
+  discount  Float
+  total     Float
+  saleItems SaleItem[]
+  transaction Transaction[]
+}
+
+model SaleItem {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  saleId    Int
+  qty       Int
+  price     Float
+  product   Product @relation(fields: [productId], references: [id])
+  sale      Sale    @relation(fields: [saleId], references: [id])
+}
+
+model Transaction {
+  id          Int     @id @default(autoincrement())
+  saleId      Int
+  paymentAmount Float
+  change      Float
+  sale        Sale    @relation(fields: [saleId], references: [id])
+  
+}
